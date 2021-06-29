@@ -15,19 +15,33 @@ class MarketDetails extends Component {
   }
 
   handleMonthChange = (event) => {
-    console.log(event.target)
-    this.setState({ selectedMonth: event.target.id })
-    
+    const val = parseInt(event.target.id);
+    const selectedMonth = this.state.selectedMonth;
+    if (selectedMonth + val < 0) {
+      this.setState({ selectedMonth: 12 + val });
+    } 
+    else if (selectedMonth + val > 11) {
+      this.setState({ selectedMonth: -1 + val });
+    }
+    else {
+      if (val === 0) {
+        this.setState({ selectedMonth: new Date().getMonth() });
+      } else {    
+        selectedMonth = this.state.selectedMonth + val;
+        this.setState({ selectedMonth: selectedMonth });
+      }
+    }
   }
 
   render() {
+
     return (
       <>
         <main>
           <p>Market details</p>
-          <p>Previous month</p>
-          <p>Current month</p>
-          <p>Next month</p>
+          <p><button id="-1" onClick={this.handleMonthChange}>Previous Month</button></p>
+          <p><button id="0" onClick={this.handleMonthChange}>Current Month</button></p>
+          <p><button id="1" onClick={this.handleMonthChange}>Next Month</button></p>
 
           <Produce
             availableProduce = { this.state.availableProduce }
@@ -42,4 +56,3 @@ class MarketDetails extends Component {
 
 
 export default MarketDetails;
-
