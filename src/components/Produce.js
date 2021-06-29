@@ -1,20 +1,16 @@
 import React from 'react';
 
-function Produce() {
+function Produce(props) {
   return (
-    <>
-      <h3>This month we have the following produce available</h3>
+    <div class="content">
+      <h3>In {props.availableProduce[new Date().getMonth()].month}, the following produce will be available:</h3>
       <ul>
-        <li>Apples</li>
-        <li>Hazelnuts</li>
-        <li>Pears</li>
-        <li>Garlic</li>
-        <li>Mushrooms</li>
-        <li>Onions</li>
-        <li>Potatoes</li>
-        <li>Turnips</li>
+        {props.availableProduce[0].selection.map(product => {
+          return <li>{product}</li>
+        })
+        }
       </ul>
-    </>
+    </div>
   )
 }
 
