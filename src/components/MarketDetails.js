@@ -17,8 +17,12 @@ class MarketDetails extends Component {
   handleMonthChange = (event) => {
     const val = parseInt(event.target.id);
     const selectedMonth = this.state.selectedMonth;
-    if ((selectedMonth + val) > 11 || (selectedMonth + val) < 0) {
+    if ((selectedMonth + val) > 11) {
       const thisMonth = (selectedMonth + val) % 12;
+      this.setState({ selectedMonth: thisMonth })
+    } else if ((selectedMonth + val) < 0) {
+      const abs = Math.abs(selectedMonth + val) % 12;
+      const thisMonth = 12 - abs;
       this.setState({ selectedMonth: thisMonth })
     } else if (val === 0) {
       this.setState({ selectedMonth: new Date().getMonth() });
